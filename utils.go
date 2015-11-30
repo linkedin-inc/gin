@@ -7,7 +7,6 @@ package gin
 import (
 	"encoding/xml"
 	"net/http"
-	"os"
 	"path"
 	"reflect"
 	"runtime"
@@ -129,21 +128,4 @@ func joinPaths(absolutePath, relativePath string) string {
 		return finalPath + "/"
 	}
 	return finalPath
-}
-
-func resolveAddress(addr []string) string {
-	switch len(addr) {
-	case 0:
-		if port := os.Getenv("PORT"); len(port) > 0 {
-			debugPrint("Environment variable PORT=\"%s\"", port)
-			return ":" + port
-		} else {
-			debugPrint("Environment variable PORT is undefined. Using port :8080 by default")
-			return ":8080"
-		}
-	case 1:
-		return addr[0]
-	default:
-		panic("too much parameters")
-	}
 }
