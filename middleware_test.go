@@ -6,7 +6,6 @@ package gin
 
 import (
 	"errors"
-	"strings"
 
 	"testing"
 
@@ -246,5 +245,11 @@ func TestMiddlewareWrite(t *testing.T) {
 	w := performRequest(router, "GET", "/")
 
 	assert.Equal(t, w.Code, 400)
-	assert.Equal(t, strings.Replace(w.Body.String(), " ", "", -1), strings.Replace("hola\n<map><foo>bar</foo></map>{\"foo\":\"bar\"}\n{\"foo\":\"bar\"}\nevent:test\ndata:message\n\n", " ", "", -1))
+	assert.Equal(t, w.Body.String(), `hola
+<map><foo>bar</foo></map>{"foo":"bar"}
+{"foo":"bar"}
+event:test
+data:message
+
+`)
 }
