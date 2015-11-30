@@ -278,6 +278,10 @@ func (engine *Engine) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 func (engine *Engine) handleHTTPRequest(context *Context) {
 	httpMethod := context.Request.Method
 	path := context.Request.URL.Path
+	// hack code
+	if len(path) > 7 && path[0:7] == "//html/" {
+		path = path[1:]
+	}
 
 	// Find root of the tree for the given HTTP method
 	t := engine.trees
